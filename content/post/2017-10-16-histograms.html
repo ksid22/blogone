@@ -1,0 +1,22 @@
+---
+title: Histograms
+author: ''
+date: '2017-10-16'
+slug: histograms
+categories: []
+tags: []
+---
+
+
+
+<p>Another way to visualize data is a histogram. For our exapmle, we must first extract data from the Lahman package. To do this, we must load the following libraries.</p>
+<p>Now we gather the approiate data using a sql request. We want to find all the salaries of baseball players.</p>
+<pre class="r"><code>query&lt;-&quot;SELECT salary FROM Salaries&quot;
+result&lt;-sqldf(query)</code></pre>
+<p>Now we must visualize this data through a histogram.</p>
+<pre class="r"><code>ggplot()+
+  geom_histogram(data=result,aes(x=salary),color=&quot;blue&quot;,bins=10)+
+  ggtitle(&quot;Salary Distribution&quot;)+
+  xlab(&#39;salary&#39;)+
+  ylab(&#39;count&#39;)</code></pre>
+<p><img src="/post/2017-10-16-histograms_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>

@@ -1,0 +1,44 @@
+---
+title: Scatter Plots
+author: ''
+date: '2017-10-16'
+slug: scatter-plots
+categories: []
+tags: []
+---
+
+
+We first want to take data from the Lahman database, which includes baseball stastics. 
+```{r setup, include=(FALSE)} 
+library(Lahman)
+library(sqldf)
+library(ggplot2)
+```
+Once these libraries are loaded, we need to extract the data that is desired. Let's look at an example.
+
+Find the total career homeruns and strikeouts from players who had more than 400 homeruns. 
+
+```{r}
+query<-"SELECT playerID,sum(HR),sum(SO)
+FROM Batting
+Group BY playerID
+HAVING sum(HR)>400"
+sqldf(query)
+```
+Now we must save it as result.
+```{r}
+query<-"SELECT playerID,sum(HR) AS CareerHR,sum(SO) AS CareerSO
+FROM Batting
+Group BY playerID
+HAVING sum(HR)>400"
+result<-sqldf(query)
+```
+Once we have gathered the data, we must visualize it by creating a scatter plot. This will be done using the following code. 
+```{r}
+ggplot()+
+  geom_point(data=result, aes(x=CareerSO, y=CareerHR), size=3)+
+  ggtitle("Career Strikeouts & Homeruns")+
+  xlab("Career Strikeouts")+
+  ylab("Career Homeruns")
+```
+

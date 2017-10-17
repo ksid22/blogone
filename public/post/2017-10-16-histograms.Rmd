@@ -1,0 +1,34 @@
+---
+title: Histograms
+author: ''
+date: '2017-10-16'
+slug: histograms
+categories: []
+tags: []
+---
+
+Another way to visualize data is a histogram. For our exapmle, we must first extract data from the Lahman package. To do this, we must load the following libraries.
+```{r setup, include=(FALSE)}
+library(Lahman)
+library(sqldf)
+library(ggplot2)
+```
+
+Now we gather the approiate data using a sql request.
+We want to find all the salaries of baseball players.
+
+```{r}
+query<-"SELECT salary FROM Salaries"
+result<-sqldf(query)
+```
+
+Now we must visualize this data through a histogram.
+
+```{r}
+ggplot()+
+  geom_histogram(data=result,aes(x=salary),color="blue",bins=10)+
+  ggtitle("Salary Distribution")+
+  xlab('salary')+
+  ylab('count')
+```
+

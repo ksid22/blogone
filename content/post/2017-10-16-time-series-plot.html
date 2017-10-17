@@ -1,0 +1,24 @@
+---
+title: Time Series Plot
+author: ''
+date: '2017-10-16'
+slug: time-series-plot
+categories: []
+tags: []
+---
+
+
+
+<p>We must first begin with extrating data from Lahman and loading our other libraries.</p>
+<p>We need to figure out Babe Ruth’s homerun total for his career. Here is the sql request:</p>
+<pre class="r"><code>query&lt;-&quot;SELECT yearID,HR FROM Batting
+WHERE playerID=&#39;ruthba01&#39;&quot;
+result&lt;-sqldf(query)</code></pre>
+<p>Now we can take this data and put in in a time series plot so it easier to view.</p>
+<pre class="r"><code>ggplot()+
+  geom_point(data=result,aes(x=yearID,y=HR),size=1/2)+
+  geom_line(data=result,aes(x=yearID,y=HR))+
+  ggtitle(&quot;Babe Ruth&#39;s Homeruns by Year&quot;)+
+  xlab(&quot;Year&quot;)+
+  ylab(&quot;Number of Homeruns&quot;)</code></pre>
+<p><img src="/post/2017-10-16-time-series-plot_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
